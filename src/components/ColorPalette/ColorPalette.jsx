@@ -14,12 +14,12 @@ const ColorPalette = ({ miniBox, bigBox, paletteC}) => {
         ref={miniBox}
       >
         {[...Array(10)].map((_, i) => (
-          <div className="miniBox" draggable="true" key={i}></div>
+          <a  className="miniBox" draggable="true" key={i}></a>
         ))}
       </div>
       <div className="colorPaletteBoxs2" ref={bigBox}>
         {[...Array(5)].map((_, i) => (
-          <div className="bigBox" draggable="true" key={i}></div>
+          <a  className="bigBox" draggable="true" key={i}></a>
         ))}
       </div>
     </div>

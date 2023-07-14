@@ -33,10 +33,10 @@ function App() {
       }
     for (const emp of box) {
       console.log(emp)
-      emp.addEventListener("dblclick", resetColor.bind(emp));
+      emp.addEventListener("dblclick", resetColor);
       emp.addEventListener("dragstart", dragStart);
-      emp.addEventListener("dragover", dragOver);
-      emp.addEventListener("drop", dragDrop.bind(emp));
+      emp.addEventListener("dragover", (e) => {dragOver(e)});
+      emp.addEventListener("drop",(e) => {dragDrop(e, emp)});
     }
   }, []) 
 
@@ -81,13 +81,15 @@ function App() {
   
   function dragOver(e) {
     e.preventDefault();
+    console.log("dragover")
   }
 
-  function dragDrop() {
-
-    console.log("drop")
-    this.style.backgroundColor = `${color}`;
-    this.style.boxShadow = "none";
+  function dragDrop(e, emp) {
+    e.stopPropagation();
+    e.preventDefault()
+    console.log("dragDrop")
+    emp.style.backgroundColor = `${color}`;
+    emp.style.boxShadow = "none";
   }
 
   return (

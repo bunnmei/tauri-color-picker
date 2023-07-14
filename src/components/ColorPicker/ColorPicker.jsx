@@ -68,11 +68,11 @@ const ColorPicker = ({ spoitedColor, stringD, stringS }) => {
       <div ref={spoitedColor} className="pickedColorBoxs">
         {picked.map((color, i) => (
           <div className="pickedColor" key={i}>
-            <div
+            <a
               className="colorSampleBox"
               style={{ background: color }}
               draggable="true"
-            ></div>
+            ></a>
             <span className="colorCodeText">{colorCodeToString(color)}</span>
             <div className="copyIconBox" onClick={(e) => copyedColor(color, e)}>
               <IoMdCopy className="icon" />
