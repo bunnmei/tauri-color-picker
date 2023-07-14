@@ -1,0 +1,93 @@
+.App {
+  height: 100vh;
+  min-width: 100%;
+  display: grid;
+  /* gap: 30px; */
+  grid-template:
+    "...   ...   ...   .....   ... ...    ...    ..." 30px
+    "...   palet palet palet   ... slider slider ..." 100px
+    "...   palet palet palet   ... ...    ...    ..." 30px
+    "...   palet palet palet   ... spoit  spoit  ..." 1fr
+    "...   ...   ...   ....    ... ...    ...    ..." 30px
+    "...   amari ...   search  ... option option ..." 200px
+    "...   ...   ...   ...     ...  ...    ...   ..." 30px
+    /30px  300px 30px 1fr      30px  100px 200px 30px;
+  }
+  
+  @media screen and (max-width: 560px) {
+    .App {
+      grid-template:
+        "...   ...      ...    ..." 30px
+        "...   slider   slider ..." 100px
+        "...   ...      ...    ..." 30px
+        "...   spoit    spoit  ..." 1fr
+        "...   ...      ...    ..." 30px
+        "...   option   option ..." 200px
+        "...   ...      ...    ..." 30px
+        /30px  1fr      1fr 30px;
+    }
+
+    .palet {
+      display: none;
+    }
+    .search {
+      display: none;
+    }
+    .amari {
+      display: none;
+    }
+  }
+
+.palet {
+  grid-area: palet;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border-radius: 36px;
+  background: var(--scolor-b);
+  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
+}
+
+.option {
+  grid-area: option;
+  border-radius: 36px;
+  background: var(--scolor-b);
+  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
+}
+.slider {
+  grid-area: slider;
+  border-radius: 36px;
+  background: var(--scolor-b);
+  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
+}
+
+.spoit {
+  grid-area: spoit;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  border-radius: 36px;
+  background: var(--scolor-b);
+}
+
+.amari {
+  grid-area: amari;
+  border-radius: 36px;
+  background: var(--scolor-b);
+  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
+}
+
+.search {
+  grid-area: search;
+  border-radius: 36px;
+  background: var(--scolor-b);
+  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
+}
+.logo.vite:hover {
+  filter: drop-shadow(0 0 2em #747bff);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafb);
+} 

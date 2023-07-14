@@ -1,0 +1,36 @@
+.colorOptionContainer {
+ display: flex;
+ height: 100%;
+ flex-direction: column;
+ justify-content: space-between;
+}
+
+.colorCodeOptionBox{
+  margin-top: 10px;
+}
+.colorCodeTitle{
+  margin-left: 30px;
+}
+.colorCode{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.colorToggleBtn{
+  transition: 0.3s;
+  height: 40px;
+  width: 60px;
+  border-radius: 7px;
+  background: var(--scolor-b);
+  box-shadow:  5px 5px 10px var(--scolor-m),
+              -5px -5px 10px var(--scolor-s);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.copyToStringOptionBox{
+  margin-bottom: 20px;
+}

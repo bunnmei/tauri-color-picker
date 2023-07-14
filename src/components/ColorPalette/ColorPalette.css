@@ -1,0 +1,67 @@
+.paletteContainer{
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  padding: 20px;
+}
+
+.colorPaletteBoxs{
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(10, 50px);
+  /* grid-template-rows: 100px 100px; */
+}
+
+.miniBox{
+  height: 100px;
+  border-radius: 7px;
+  background: var(--scolor-b);
+  box-shadow: inset 5px 5px 10px var(--scolor-m),
+            inset -5px -5px 10px var(--scolor-s);
+}
+.colorPaletteBoxs2{
+  /* background-color: gray; */
+  margin-top: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+.bigBox{
+  height: 120px;
+  border-radius: 7px;
+  background: var(--scolor-b);
+  box-shadow: inset 5px 5px 10px var(--scolor-m),
+            inset -5px -5px 10px var(--scolor-s);
+}
+
+@media screen and (max-width: 1200px) {
+  .colorPaletteBoxs{
+    grid-template-columns: repeat(8, 50px);
+  }
+  .miniBox{
+    height: 50px;
+  } 
+  .bigBox{
+    height: 100px;
+  } 
+}
+
+@media screen and (max-width: 1000px) {
+  .colorPaletteBoxs{
+    grid-template-columns: repeat(6, 50px);
+  }
+} 
+
+@media screen and (max-width: 860px) {
+  .colorPaletteBoxs{
+    grid-template-columns: repeat(5, 50px);
+  }
+} 

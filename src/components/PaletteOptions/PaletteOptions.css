@@ -1,0 +1,17 @@
+.paletteOptionBox{
+  margin-left: 32px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .paletteOptionText{} */
+
+.paletteOptionInputColor{
+  margin-right: 32px;
+  height: 40px;
+  width: 40px;
+  border: 0;
+  background-color: var(--theme-c);
+}
+
