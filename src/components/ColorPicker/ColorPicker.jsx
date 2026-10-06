@@ -1,87 +1,67 @@
-import React from 'react'
-import './ColorPicker.css'
-import { GiEyedropper } from 'react-icons/gi'
-import {IoMdCopy} from 'react-icons/io'
-import convert from "color-convert";
-import useLocalStorageArr from '../../hooks/useLocalStorageArr'
+import { useEffect, useRef, useState } from "react";
+import { GiEyedropper } from "react-icons/gi";
+import { IoMdCopy } from "react-icons/io";
+import { DRAG_TYPE, formatColor, quoteText } from "../../lib/color";
+import "./ColorPicker.css";
 
-const ColorPicker = ({ spoitedColor, stringD, stringS }) => {
-  const [picked, setPicked] = useLocalStorageArr("picked", [
-    "#ff7f7f",
-    "#ff7fff",
-    "#7f7fff",
-    "#7fffff",
-    "#7fff7f",
-    "#ffff7f",
-  ]);
+export default function ColorPicker({ history, format, quote, onPick }) {
+  const inputRef = useRef(null);
+  const [copiedIndex, setCopiedIndex] = useState(null);
 
+  // React の onChange は input イベント (ドラッグ中も連続発火) なので、
+  // 確定時だけ発火するネイティブの change イベントで履歴に追加する
+  useEffect(() => {
+    const input = inputRef.current;
+    const handleChange = (e) => onPick(e.target.value);
+    input.addEventListener("change", handleChange);
+    return () => input.removeEventListener("change", handleChange);
+  }, [onPick]);
 
-  const covertColorCode = (string) => {
-    if (stringS[0]) return string
-    else if (stringS[1]) {
-      let mozi = convert.hex.rgb(string.replace("#", " "));
-      return `rgb(${mozi[0]},${mozi[1]},${mozi[2]})`;
-    } else if (stringS[2]) {
-      let mozi = convert.hex.hsl(string.replace("#", " "));
-      return `hsl(${mozi[0]},${mozi[1]}%,${mozi[2]}%)`;
-    }
-  }
+  useEffect(() => {
+    if (copiedIndex === null) return;
+    const id = setTimeout(() => setCopiedIndex(null), 500);
+    return () => clearTimeout(id);
+  }, [copiedIndex]);
 
-  const colorCodeToString = (string) => {
-    let mozi = covertColorCode(string)
-    
-    mozi = mozi.toUpperCase()
-    if (stringD[0]) return `${mozi}`;
-    else if (stringD[1]) return `'${mozi}'`
-    else if (stringD[2]) return `"${mozi}"`
-  }
-  const pickedColor = (e) => {
-    let copy = [...picked];
-    if (picked.length > 5) {
-      copy.splice(copy.length - 1);
-    }
-    setPicked([e.target.value, ...copy]);
-  };
-
-  const copyedColor = (color, e) => {
+  const copy = async (text, index) => {
     try {
-      navigator.clipboard.writeText(colorCodeToString(color));
-      e.target.classList.add("anime")
-      let id = setTimeout(() => {
-        e.target.classList.remove("anime")
-        clearTimeout(id)
-      }, 500)
-    } catch (e) {
-      
+      await navigator.clipboard.writeText(text);
+      setCopiedIndex(index);
+    } catch (err) {
+      console.error("コピーに失敗しました", err);
     }
   };
-  return (
-    <>
-      <div className="colorPickerBox">
-        <GiEyedropper className="icon" />
-        <input
-          type="color"
-          className="colorPicker"
-          onInput={(e) => pickedColor(e)}
-        />
-      </div>
-      <div ref={spoitedColor} className="pickedColorBoxs">
-        {picked.map((color, i) => (
-          <div className="pickedColor" key={i}>
-            <a
-              className="colorSampleBox"
-              style={{ background: color }}
-              draggable="true"
-            ></a>
-            <span className="colorCodeText">{colorCodeToString(color)}</span>
-            <div className="copyIconBox" onClick={(e) => copyedColor(color, e)}>
-              <IoMdCopy className="icon" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </>
-  );
-};
 
-export default ColorPicker
+  return (
+    <div className="picker">
+      <div className="picker-input raised">
+        <GiEyedropper className="icon" />
+        <input ref={inputRef} type="color" className="color-input" aria-label="色を選択" />
+      </div>
+      <ul className="picker-history">
+        {history.map((color, i) => {
+          const text = quoteText(formatColor(color, format), quote);
+          return (
+            <li className="picker-history-item raised" key={i}>
+              <span
+                className="picker-swatch"
+                style={{ background: color }}
+                draggable
+                onDragStart={(e) => e.dataTransfer.setData(DRAG_TYPE, color)}
+              />
+              <span className="picker-code">{text}</span>
+              <button
+                type="button"
+                className={`picker-copy ${copiedIndex === i ? "copied" : ""}`}
+                onClick={() => copy(text, i)}
+                aria-label="コピー"
+              >
+                <IoMdCopy />
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}

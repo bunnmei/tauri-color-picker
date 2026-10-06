@@ -1,93 +1,115 @@
-.App {
-  height: 100vh;
-  min-width: 100%;
+/* ---------- テーマ ---------- */
+:root {
+  --bg: #e0e0e0;
+  --shadow-dark: #cacaca;
+  --shadow-light: #f6f6f6;
+  --text: #1f1f1f;
+  --accent: #598ade;
+  --on-accent: #f1f1f1;
+
+  --shadow-raised: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+  --shadow-sunken: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+
+  color-scheme: light;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme="dark"] {
+  --bg: #333333;
+  --shadow-dark: #222222;
+  --shadow-light: #444444;
+  --text: #f1f1f1;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ---------- ニューモーフィズム共通 ---------- */
+.card {
+  border-radius: 36px;
+  background: var(--bg);
+  box-shadow: var(--shadow-raised);
+}
+
+.raised {
+  background: var(--bg);
+  box-shadow: var(--shadow-raised);
+}
+
+.sunken {
+  background: var(--bg);
+  box-shadow: var(--shadow-sunken);
+}
+
+.icon {
+  font-size: 40px;
+}
+
+/* ネイティブのカラー入力をアクセントカラーの四角にする */
+.color-input {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+/* ---------- レイアウト ---------- */
+.app {
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px;
   display: grid;
-  /* gap: 30px; */
-  grid-template:
-    "...   ...   ...   .....   ... ...    ...    ..." 30px
-    "...   palet palet palet   ... slider slider ..." 100px
-    "...   palet palet palet   ... ...    ...    ..." 30px
-    "...   palet palet palet   ... spoit  spoit  ..." 1fr
-    "...   ...   ...   ....    ... ...    ...    ..." 30px
-    "...   amari ...   search  ... option option ..." 200px
-    "...   ...   ...   ...     ...  ...    ...   ..." 30px
-    /30px  300px 30px 1fr      30px  100px 200px 30px;
-  }
-  
-  @media screen and (max-width: 560px) {
-    .App {
-      grid-template:
-        "...   ...      ...    ..." 30px
-        "...   slider   slider ..." 100px
-        "...   ...      ...    ..." 30px
-        "...   spoit    spoit  ..." 1fr
-        "...   ...      ...    ..." 30px
-        "...   option   option ..." 200px
-        "...   ...      ...    ..." 30px
-        /30px  1fr      1fr 30px;
-    }
+  gap: 30px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-rows: 80px 1fr 180px;
+  grid-template-areas:
+    "palette         theme"
+    "palette         picker"
+    "palette-options options";
+}
 
-    .palet {
-      display: none;
-    }
-    .search {
-      display: none;
-    }
-    .amari {
-      display: none;
-    }
+.area-palette { grid-area: palette; }
+.area-theme { grid-area: theme; }
+.area-picker { grid-area: picker; }
+.area-options { grid-area: options; }
+.area-palette-options { grid-area: palette-options; }
+
+@media (max-width: 560px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "theme"
+      "picker"
+      "options";
   }
 
-.palet {
-  grid-area: palet;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  border-radius: 36px;
-  background: var(--scolor-b);
-  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
+  .area-palette,
+  .area-palette-options {
+    display: none;
+  }
 }
-
-.option {
-  grid-area: option;
-  border-radius: 36px;
-  background: var(--scolor-b);
-  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
-}
-.slider {
-  grid-area: slider;
-  border-radius: 36px;
-  background: var(--scolor-b);
-  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
-}
-
-.spoit {
-  grid-area: spoit;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: column;
-  border-radius: 36px;
-  background: var(--scolor-b);
-}
-
-.amari {
-  grid-area: amari;
-  border-radius: 36px;
-  background: var(--scolor-b);
-  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
-}
-
-.search {
-  grid-area: search;
-  border-radius: 36px;
-  background: var(--scolor-b);
-  box-shadow: 5px 5px 10px var(--scolor-m), -5px -5px 10px var(--scolor-s);
-}
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafb);
-} 

@@ -1,0 +1,83 @@
+name: release
+
+# `v1.2.3` のようなタグを push すると、各 OS 向けにビルドして
+# GitHub Release (下書き) にインストーラーを添付する
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: windows-x64
+            platform: windows-latest
+            args: "--bundles nsis"
+          - name: linux-x64
+            # 古めの glibc でビルドしておくと動くディストリが広がる
+            platform: ubuntu-22.04
+            args: "--bundles deb,rpm"
+          - name: macos-arm64
+            platform: macos-latest
+            args: "--target aarch64-apple-darwin --bundles dmg"
+
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check tag matches app version
+        shell: bash
+        run: |
+          version=$(node -p "require('./src-tauri/tauri.conf.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::タグ $GITHUB_REF_NAME と tauri.conf.json の version ($version) が一致しません"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin' || '' }}
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - run: npm ci
+
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Color Picker ${{ github.ref_name }}"
+          releaseBody: |
+            ## ダウンロード
+            | OS | ファイル |
+            | --- | --- |
+            | Windows (64bit) | `*_x64-setup.exe` |
+            | macOS (Apple Silicon) | `*_aarch64.dmg` |
+            | Debian / Ubuntu | `*_amd64.deb` |
+            | Fedora / openSUSE | `*.x86_64.rpm` |
+
+            macOS で「壊れているため開けません」と出る場合は、アプリを Applications に移したあと
+            `xattr -cr /Applications/colorPicker.app` を実行してください (署名していないため)。
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}

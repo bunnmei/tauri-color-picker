@@ -1,94 +1,55 @@
-import React from 'react'
-import { RiDoubleQuotesL, RiSingleQuotesL } from 'react-icons/ri'
-import './PickerOptions.css'
-export const PickerOptions = ({ optionString, optionColorCode, colormode}) => {
-  const [stringD, setStringD] = optionString;
-  const [stringS, setStringS] = optionColorCode;
-  const btnChange = (i) => {
-    const newStringD = [false, false, false];
-    newStringD[i] = true;
-    setStringD(newStringD);
-  };
-  const btnChangeS = (i) => {
-    const newStringS = [false, false, false];
-    newStringS[i] = true;
-    setStringS(newStringS);
-  };
+import { useId } from "react";
+import { RiDoubleQuotesL, RiSingleQuotesL } from "react-icons/ri";
+import { FORMATS, QUOTES } from "../../lib/color";
+import "./PickerOptions.css";
 
-  const colorCodeText = (i) => {
-    if (i === 0) {
-      return "HEX";
-    } else if (i === 1) {
-      return "RGB";
-    } else {
-      return "HSL";
-    }
-  };
+const QUOTE_LABELS = {
+  none: null,
+  single: <RiSingleQuotesL />,
+  double: <RiDoubleQuotesL />,
+};
+
+function OptionGroup({ title, options, value, onChange, renderLabel }) {
+  const titleId = useId();
+  // fieldset/legend は WebKitGTK で初回レイアウトが崩れるので div で組む
   return (
-    <div className="colorOptionContainer">
-      <div className="colorCodeOptionBox">
-        <span className="colorCodeTitle">カラーコード</span>
-        <div className="colorCode">
-          {stringS.map((tf, i) => (
-            <div
-              className="colorToggleBtn"
-              key={i}
-              onClick={() => btnChangeS(i)}
-              style={
-                tf
-                  ? {
-                      boxShadow: `inset 5px 5px 10px ${
-                        colormode === "light" ? "#cacaca" : "#222222"
-                      }, inset -5px -5px 10px ${
-                        colormode === "light" ? "#f6f6f6" : "#444444"
-                      }`,
-                    }
-                  : {
-                      boxShadow: `5px 5px 10px ${
-                        colormode === "light" ? "#cacaca" : "#222222"
-                      }, -5px -5px 10px ${
-                        colormode === "light" ? "#f6f6f6" : "#444444"
-                      }`,
-                    }
-              }
-            >
-              <span>{colorCodeText(i)}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="copyToStringOptionBox">
-        <span className="colorCodeTitle">文字列としてコピー</span>
-        <div className="colorCode">
-          {stringD.map((tf, i) => (
-            <div
-              className="colorToggleBtn"
-              onClick={() => btnChange(i)}
-              key={i}
-              style={
-                tf
-                  ? {
-                      boxShadow: `inset 5px 5px 10px ${
-                        colormode === "light" ? "#cacaca" : "#222222"
-                      }, inset -5px -5px 10px ${
-                        colormode === "light" ? "#f6f6f6" : "#444444"
-                      }`,
-                    }
-                  : {
-                      boxShadow: `5px 5px 10px ${
-                        colormode === "light" ? "#cacaca" : "#222222"
-                      }, -5px -5px 10px ${
-                        colormode === "light" ? "#f6f6f6" : "#444444"
-                      }`,
-                    }
-              }
-            >
-              {i === 2 && <RiDoubleQuotesL style={{ fontSize: "23px" }} />}
-              {i === 1 && <RiSingleQuotesL style={{ fontSize: "23px" }} />}
-            </div>
-          ))}
-        </div>
+    <div className="option-group" role="group" aria-labelledby={titleId}>
+      <span className="option-title" id={titleId}>{title}</span>
+      <div className="option-buttons">
+        {options.map((option) => (
+          <button
+            type="button"
+            key={option}
+            className={`option-button ${option === value ? "sunken" : "raised"}`}
+            aria-pressed={option === value}
+            aria-label={option}
+            onClick={() => onChange(option)}
+          >
+            {renderLabel(option)}
+          </button>
+        ))}
       </div>
     </div>
   );
-};
+}
+
+export default function PickerOptions({ format, onFormatChange, quote, onQuoteChange }) {
+  return (
+    <div className="options">
+      <OptionGroup
+        title="カラーコード"
+        options={FORMATS}
+        value={format}
+        onChange={onFormatChange}
+        renderLabel={(f) => f.toUpperCase()}
+      />
+      <OptionGroup
+        title="文字列としてコピー"
+        options={QUOTES}
+        value={quote}
+        onChange={onQuoteChange}
+        renderLabel={(q) => QUOTE_LABELS[q]}
+      />
+    </div>
+  );
+}

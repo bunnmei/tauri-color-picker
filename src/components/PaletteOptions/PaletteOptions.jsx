@@ -1,13 +1,17 @@
-import React from 'react'
-import './PaletteOptions.css'
+import "./PaletteOptions.css";
 
-function PaletteOptions({paletteColor, paletteC}) {
+const THEME_BG = { light: "#e0e0e0", dark: "#333333" };
+
+export default function PaletteOptions({ theme, value, onChange }) {
   return (
-    <div className='paletteOptionBox'>
-      <span className='paletteOptionText'>パレットの色</span>
-      <input type="color" value={paletteC} onChange={(e)=>paletteColor(e)}className="paletteOptionInputColor"/>
-    </div>
+    <label className="palette-options">
+      <span>パレットの色</span>
+      <input
+        type="color"
+        className="color-input"
+        value={value ?? THEME_BG[theme]}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </label>
   );
 }
-
-export default PaletteOptions

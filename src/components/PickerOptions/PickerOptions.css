@@ -1,36 +1,32 @@
-.colorOptionContainer {
- display: flex;
- height: 100%;
- flex-direction: column;
- justify-content: space-between;
+.options {
+  height: 100%;
+  padding: 10px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.colorCodeOptionBox{
-  margin-top: 10px;
-}
-.colorCodeTitle{
+.option-title {
   margin-left: 30px;
 }
-.colorCode{
+
+.option-buttons {
   margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
-}
-
-.colorToggleBtn{
-  transition: 0.3s;
-  height: 40px;
-  width: 60px;
-  border-radius: 7px;
-  background: var(--scolor-b);
-  box-shadow:  5px 5px 10px var(--scolor-m),
-              -5px -5px 10px var(--scolor-s);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 
-.copyToStringOptionBox{
-  margin-bottom: 20px;
+.option-button {
+  width: 60px;
+  height: 40px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  transition: box-shadow 0.3s;
+}
+
+.option-button svg {
+  font-size: 23px;
 }
