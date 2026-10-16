@@ -2,11 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { GiEyedropper } from "react-icons/gi";
 import { IoMdCopy } from "react-icons/io";
 import { DRAG_TYPE, formatColor, quoteText } from "../../lib/color";
+import { isScreenPickerSupported, pickScreenColor } from "../../lib/eyedropper";
 import "./ColorPicker.css";
 
 export default function ColorPicker({ history, format, quote, onPick }) {
   const inputRef = useRef(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [screenPicker, setScreenPicker] = useState(false);
+
+  useEffect(() => {
+    isScreenPickerSupported().then(setScreenPicker);
+  }, []);
 
   // React の onChange は input イベント (ドラッグ中も連続発火) なので、
   // 確定時だけ発火するネイティブの change イベントで履歴に追加する
@@ -23,6 +29,15 @@ export default function ColorPicker({ history, format, quote, onPick }) {
     return () => clearTimeout(id);
   }, [copiedIndex]);
 
+  const pickFromScreen = async () => {
+    try {
+      const color = await pickScreenColor();
+      if (color) onPick(color);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   const copy = async (text, index) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -35,7 +50,19 @@ export default function ColorPicker({ history, format, quote, onPick }) {
   return (
     <div className="picker">
       <div className="picker-input raised">
-        <GiEyedropper className="icon" />
+        {screenPicker ? (
+          <button
+            type="button"
+            className="picker-eyedropper"
+            onClick={pickFromScreen}
+            aria-label="画面から色を取得"
+            title="画面から色を取得"
+          >
+            <GiEyedropper className="icon" />
+          </button>
+        ) : (
+          <GiEyedropper className="icon" />
+        )}
         <input ref={inputRef} type="color" className="color-input" aria-label="色を選択" />
       </div>
       <ul className="picker-history">
