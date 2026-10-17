@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GiEyedropper } from "react-icons/gi";
 import { IoMdCopy } from "react-icons/io";
+import { copyText } from "../../lib/clipboard";
 import { DRAG_TYPE, formatColor, quoteText } from "../../lib/color";
 import { isScreenPickerSupported, pickScreenColor } from "../../lib/eyedropper";
 import "./ColorPicker.css";
@@ -40,7 +41,7 @@ export default function ColorPicker({ history, format, quote, onPick }) {
 
   const copy = async (text, index) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await copyText(text);
       setCopiedIndex(index);
     } catch (err) {
       console.error("コピーに失敗しました", err);

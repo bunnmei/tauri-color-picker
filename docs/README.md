@@ -8,6 +8,8 @@ https://bunnmei.github.io/tauri-color-picker/ で公開されるアプリのサ�
 python3 -m http.server 8000
 ```
 
+ブラウザでは **http://localhost:8000/** を開く。表示される `http://0.0.0.0:8000/` や LAN の IP で開くと「安全でないページ」扱いになり、ブラウザ版のスポイト（EyeDropper API）とクリップボードの API が使えない（コピーは代わりの方法で動く）。
+
 ```
 docs/
   .nojekyll        Jekyll を通さず、そのまま公開する
