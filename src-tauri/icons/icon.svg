@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Color Picker アプリアイコンの元データ (Inkscape で編集可)
+  レイヤー: 背景 / 色相環 / スポイト
+  PNG・ICO・ICNS は `npx tauri icon src-tauri/icons/icon.svg` で作り直す
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f4f4"/>
+      <stop offset="1" stop-color="#d4d4d4"/>
+    </linearGradient>
+  </defs>
+
+  <g id="layer-background" inkscape:groupmode="layer" inkscape:label="背景">
+    <rect id="background" x="64" y="64" width="896" height="896" rx="200" fill="url(#bg-gradient)"/>
+  </g>
+
+  <!-- 区切りの線は背景と同じ色。消したいときはこのレイヤーの stroke を外す -->
+  <g id="layer-wheel" inkscape:groupmode="layer" inkscape:label="色相環"
+     stroke="#e4e4e4" stroke-width="10" stroke-linejoin="round">
+    <path id="hue-000" inkscape:label="hue 0" fill="#ef3939" d="M 429.18 202.90 A 320 320 0 0 1 594.82 202.90 L 558.59 338.13 A 180 180 0 0 0 465.41 338.13 Z"/>
+    <path id="hue-030" inkscape:label="hue 30" fill="#ef9439" d="M 594.82 202.90 A 320 320 0 0 1 738.27 285.73 L 639.28 384.72 A 180 180 0 0 0 558.59 338.13 Z"/>
+    <path id="hue-060" inkscape:label="hue 60" fill="#efe139" d="M 738.27 285.73 A 320 320 0 0 1 821.10 429.18 L 685.87 465.41 A 180 180 0 0 0 639.28 384.72 Z"/>
+    <path id="hue-090" inkscape:label="hue 90" fill="#94ef39" d="M 821.10 429.18 A 320 320 0 0 1 821.10 594.82 L 685.87 558.59 A 180 180 0 0 0 685.87 465.41 Z"/>
+    <path id="hue-120" inkscape:label="hue 120" fill="#39ef39" d="M 821.10 594.82 A 320 320 0 0 1 738.27 738.27 L 639.28 639.28 A 180 180 0 0 0 685.87 558.59 Z"/>
+    <path id="hue-150" inkscape:label="hue 150" fill="#39ef94" d="M 738.27 738.27 A 320 320 0 0 1 594.82 821.10 L 558.59 685.87 A 180 180 0 0 0 639.28 639.28 Z"/>
+    <path id="hue-180" inkscape:label="hue 180" fill="#39efef" d="M 594.82 821.10 A 320 320 0 0 1 429.18 821.10 L 465.41 685.87 A 180 180 0 0 0 558.59 685.87 Z"/>
+    <path id="hue-210" inkscape:label="hue 210" fill="#3994ef" d="M 429.18 821.10 A 320 320 0 0 1 285.73 738.27 L 384.72 639.28 A 180 180 0 0 0 465.41 685.87 Z"/>
+    <path id="hue-240" inkscape:label="hue 240" fill="#3939ef" d="M 285.73 738.27 A 320 320 0 0 1 202.90 594.82 L 338.13 558.59 A 180 180 0 0 0 384.72 639.28 Z"/>
+    <path id="hue-270" inkscape:label="hue 270" fill="#9439ef" d="M 202.90 594.82 A 320 320 0 0 1 202.90 429.18 L 338.13 465.41 A 180 180 0 0 0 338.13 558.59 Z"/>
+    <path id="hue-300" inkscape:label="hue 300" fill="#ef39ef" d="M 202.90 429.18 A 320 320 0 0 1 285.73 285.73 L 384.72 384.72 A 180 180 0 0 0 338.13 465.41 Z"/>
+    <path id="hue-330" inkscape:label="hue 330" fill="#ef3994" d="M 285.73 285.73 A 320 320 0 0 1 429.18 202.90 L 465.41 338.13 A 180 180 0 0 0 384.72 384.72 Z"/>
+  </g>
+
+  <!-- 縦向きに描いて 45° 回転している。向きを変えるときは transform の角度を変える -->
+  <g id="layer-eyedropper" inkscape:groupmode="layer" inkscape:label="スポイト"
+     transform="rotate(45 512 512)">
+    <!-- 色相環から浮かせるための縁取り -->
+    <g id="halo" inkscape:label="縁取り" fill="#e4e4e4" stroke="#e4e4e4" stroke-width="44" stroke-linejoin="round">
+      <rect x="446" y="140" width="132" height="210" rx="66"/>
+      <rect x="412" y="326" width="200" height="64" rx="24"/>
+      <path d="M 472 390 L 552 390 L 552 620 L 526 752 Q 512 780 498 752 L 472 620 Z"/>
+    </g>
+    <rect id="bulb" inkscape:label="ゴム球" x="446" y="140" width="132" height="210" rx="66" fill="#3a3a3a"/>
+    <rect id="bulb-shine" inkscape:label="ゴム球のツヤ" x="470" y="172" width="22" height="110" rx="11" fill="#ffffff" opacity="0.18"/>
+    <path id="glass" inkscape:label="ガラス管" d="M 472 390 L 552 390 L 552 620 L 526 752 Q 512 780 498 752 L 472 620 Z"
+          fill="#f7f9fc" stroke="#2c2c2c" stroke-width="14" stroke-linejoin="round"/>
+    <!-- 吸い取った色。色相環の hue-210 と同じ色 -->
+    <path id="liquid" inkscape:label="吸い取った色" d="M 486 520 L 538 520 L 538 618 L 518 728 Q 512 742 506 728 L 486 618 Z" fill="#3994ef"/>
+    <rect id="glass-shine" inkscape:label="ガラスのツヤ" x="490" y="410" width="12" height="90" rx="6" fill="#c9d6e6"/>
+    <rect id="collar" inkscape:label="口金" x="412" y="326" width="200" height="64" rx="24" fill="#2c2c2c"/>
+  </g>
+</svg>

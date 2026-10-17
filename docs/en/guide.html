@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guide — Color Picker</title>
+  <meta name="description" content="How to install Color Picker, pick colors, choose a copy format and use the palette.">
+  <link rel="icon" href="../img/icon.svg">
+  <link rel="alternate" hreflang="ja" href="../ja/guide.html">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="./"><img src="../img/icon.svg" alt="">Color Picker</a>
+      <nav class="nav">
+        <a href="./">Home</a>
+        <a href="guide.html" aria-current="page">Guide</a>
+      </nav>
+      <a class="lang-switch" href="../ja/guide.html" hreflang="ja" lang="ja" data-set-lang="ja"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.08 16zm2.95-8H5.08a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>日本語</a>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Guide</h1>
+    <p class="page-meta">Color Picker / Windows, macOS, Linux</p>
+
+    <div class="summary">
+      <p><strong>Pick a color → choose a format → copy.</strong> Picked colors appear in the history on the right, and you can drag them onto the palette to keep them.</p>
+    </div>
+
+    <div class="callout">
+      <p>The app's interface is in Japanese. Labels are translated in this guide.</p>
+    </div>
+
+    <nav class="toc" aria-label="Contents">
+      <div class="toc__title">On this page</div>
+      <ol>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#pick">Pick a color</a></li>
+        <li><a href="#copy">Copy the color code</a></li>
+        <li><a href="#palette">Arrange colors on the palette</a></li>
+        <li><a href="#theme">Theme and palette background</a></li>
+        <li><a href="#trouble">Troubleshooting</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="install">1. Install</h2>
+    <p>Download the file for your OS from <a href="https://github.com/bunnmei/tauri-color-picker/releases/latest">GitHub Releases</a>.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>OS</th><th>File</th><th>How to install</th></tr></thead>
+        <tbody>
+          <tr><td>Windows (64-bit)</td><td><code>*_x64-setup.exe</code></td><td>Double-click and follow the installer</td></tr>
+          <tr><td>macOS (Apple Silicon)</td><td><code>*_aarch64.dmg</code></td><td>Open it and drag the app into Applications</td></tr>
+          <tr><td>Debian / Ubuntu</td><td><code>*_amd64.deb</code></td><td><code>sudo apt install ./file-name.deb</code></td></tr>
+          <tr><td>Fedora / openSUSE</td><td><code>*.x86_64.rpm</code></td><td><code>sudo dnf install ./file-name.rpm</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout--warn">
+      <span class="callout__title">macOS says the app "is damaged and can't be opened"</span>
+      <p>The app isn't signed, so macOS blocks it. After moving it to Applications, run this in Terminal:</p>
+<pre><code>xattr -cr /Applications/colorPicker.app</code></pre>
+    </div>
+
+    <div class="callout">
+      <span class="callout__title">Windows shows "Windows protected your PC"</span>
+      <p>Click "More info" → "Run anyway" to install.</p>
+    </div>
+
+    <h2 id="pick">2. Pick a color</h2>
+    <p>Use the bar with the eyedropper icon and the color square on the right side of the window.</p>
+    <ol class="steps">
+      <li><strong>Click the color square</strong>Your OS's color dialog opens. Choose a color, or use the dialog's eyedropper to grab one from the screen.</li>
+      <li><strong>On Linux, click the eyedropper icon</strong>The Linux color dialog has no eyedropper, so the icon picks a color from the screen directly. When the cursor changes, click the spot you want.</li>
+      <li><strong>It's added to the history</strong>Once you confirm a color, it's added to the top of the history below. The 6 most recent colors are kept.</li>
+    </ol>
+
+    <h2 id="copy">3. Copy the color code</h2>
+    <p>Press the copy button at the right of a history row to copy the code shown. Change the format with the two option groups at the bottom right — "カラーコード" (color code) and "文字列としてコピー" (copy as string).</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Setting</th><th>Example of copied text</th></tr></thead>
+        <tbody>
+          <tr><td>HEX</td><td><code>#598ADE</code></td></tr>
+          <tr><td>RGB</td><td><code>rgb(89,138,222)</code></td></tr>
+          <tr><td>HSL</td><td><code>hsl(218,67%,61%)</code></td></tr>
+          <tr><td>No quotes</td><td><code>#598ADE</code></td></tr>
+          <tr><td>Single quotes</td><td><code>'#598ADE'</code></td></tr>
+          <tr><td>Double quotes</td><td><code>"#598ADE"</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Your settings are remembered after you close the app.</p>
+
+    <h2 id="palette">4. Arrange colors on the palette</h2>
+    <p>The palette on the left has 10 small slots and 5 large ones.</p>
+    <ul>
+      <li><strong>Place</strong>: drag a history swatch (the left end of each row) onto a palette slot</li>
+      <li><strong>Copy</strong>: drag a palette color onto another slot</li>
+      <li><strong>Clear</strong>: double-click a slot</li>
+    </ul>
+    <p>The palette is saved too, so it's still there the next time you open the app.</p>
+    <p>When the window is narrow, the palette is hidden and only the history is shown.</p>
+
+    <h2 id="theme">5. Theme and palette background</h2>
+    <ul>
+      <li>Use the switch at the top right to toggle <strong>light / dark</strong></li>
+      <li>"パレットの色" (palette color) changes the palette background — handy for checking how colors look on white or black. Switching the theme resets it</li>
+    </ul>
+
+    <h2 id="trouble">6. Troubleshooting</h2>
+    <details>
+      <summary>The eyedropper shows an error on Linux</summary>
+      <p>On Linux (especially Wayland) apps can't read the screen directly, so the app asks your desktop's xdg-desktop-portal for the color. Make sure <code>xdg-desktop-portal-kde</code> (KDE) or <code>xdg-desktop-portal-gnome</code> (GNOME) is installed.</p>
+    </details>
+    <details>
+      <summary>On Linux the window is blank or the app crashes on launch</summary>
+      <p>A workaround for NVIDIA drivers on Wayland is already built in. If it still happens, try launching it like this:</p>
+<pre><code>WEBKIT_DISABLE_COMPOSITING_MODE=1 color-picker</code></pre>
+    </details>
+    <details>
+      <summary>Colors I hover over while dragging aren't added to the history?</summary>
+      <p>Right — a color is added only when you confirm it in the dialog, so the history isn't flooded while you drag.</p>
+    </details>
+    <details>
+      <summary>Found a bug or have a request</summary>
+      <p>Please let us know on <a href="https://github.com/bunnmei/tauri-color-picker/issues">GitHub Issues</a>.</p>
+    </details>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span class="copyright">© 2026 bunnmei</span>
+      <a href="./">Home</a>
+      <a href="https://github.com/bunnmei/tauri-color-picker">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>

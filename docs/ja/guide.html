@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>使い方 — Color Picker</title>
+  <meta name="description" content="Color Picker のインストール方法、色の取り方、コピー形式、パレットの使い方。">
+  <link rel="icon" href="../img/icon.svg">
+  <link rel="alternate" hreflang="en" href="../en/guide.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="./"><img src="../img/icon.svg" alt="">Color Picker</a>
+      <nav class="nav">
+        <a href="./">ホーム</a>
+        <a href="guide.html" aria-current="page">使い方</a>
+      </nav>
+      <a class="lang-switch" href="../en/guide.html" hreflang="en" lang="en" data-set-lang="en"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.08 16zm2.95-8H5.08a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>English</a>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">使い方</h1>
+    <p class="page-meta">Color Picker ／ Windows・macOS・Linux</p>
+
+    <div class="summary">
+      <p><strong>色を取る → 形式を選ぶ → コピー。</strong>取った色は右側の履歴に並び、ドラッグ&ドロップでパレットに保存できます。</p>
+    </div>
+
+    <nav class="toc" aria-label="目次">
+      <div class="toc__title">このページの内容</div>
+      <ol>
+        <li><a href="#install">インストール</a></li>
+        <li><a href="#pick">色を取る</a></li>
+        <li><a href="#copy">カラーコードをコピーする</a></li>
+        <li><a href="#palette">パレットに並べる</a></li>
+        <li><a href="#theme">テーマとパレットの背景色</a></li>
+        <li><a href="#trouble">困ったときは</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="install">1. インストール</h2>
+    <p><a href="https://github.com/bunnmei/tauri-color-picker/releases/latest">GitHub の Releases</a> から、使っている OS に合ったファイルをダウンロードします。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>OS</th><th>ファイル</th><th>インストール</th></tr></thead>
+        <tbody>
+          <tr><td>Windows（64bit）</td><td><code>*_x64-setup.exe</code></td><td>ダブルクリックしてインストーラーの指示に従う</td></tr>
+          <tr><td>macOS（Apple Silicon）</td><td><code>*_aarch64.dmg</code></td><td>開いて、アプリを「アプリケーション」フォルダへドラッグ</td></tr>
+          <tr><td>Debian / Ubuntu</td><td><code>*_amd64.deb</code></td><td><code>sudo apt install ./ファイル名.deb</code></td></tr>
+          <tr><td>Fedora / openSUSE</td><td><code>*.x86_64.rpm</code></td><td><code>sudo dnf install ./ファイル名.rpm</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout--warn">
+      <span class="callout__title">macOS で「壊れているため開けません」と出るとき</span>
+      <p>署名していないアプリのため、macOS がブロックしています。アプリを「アプリケーション」に移したあと、ターミナルで次を実行してください。</p>
+<pre><code>xattr -cr /Applications/colorPicker.app</code></pre>
+    </div>
+
+    <div class="callout">
+      <span class="callout__title">Windows で「PC が保護されました」と出るとき</span>
+      <p>「詳細情報」→「実行」を押すとインストールできます。</p>
+    </div>
+
+    <h2 id="pick">2. 色を取る</h2>
+    <p>画面右側の、スポイトのアイコンと色の四角が並んだボタンから色を取ります。</p>
+    <ol class="steps">
+      <li><strong>色の四角をクリックする</strong>OS の色選択ダイアログが開きます。好きな色を選ぶか、ダイアログのスポイトで画面上の色を取ります。</li>
+      <li><strong>Linux ではスポイトのアイコンをクリックする</strong>Linux の色選択ダイアログにはスポイトが無いため、アイコンから直接画面の色を取れるようにしています。カーソルが変わったら、取りたい場所をクリックします。</li>
+      <li><strong>履歴に追加される</strong>色を確定すると、その下の履歴の一番上に追加されます。履歴は新しい順に 6 件まで残ります。</li>
+    </ol>
+
+    <h2 id="copy">3. カラーコードをコピーする</h2>
+    <p>履歴の各行の右にあるコピーボタンを押すと、表示されているカラーコードがクリップボードに入ります。表示の形式は画面下の「カラーコード」と「文字列としてコピー」で切り替えます。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>設定</th><th>コピーされる文字列の例</th></tr></thead>
+        <tbody>
+          <tr><td>HEX</td><td><code>#598ADE</code></td></tr>
+          <tr><td>RGB</td><td><code>rgb(89,138,222)</code></td></tr>
+          <tr><td>HSL</td><td><code>hsl(218,67%,61%)</code></td></tr>
+          <tr><td>クォートなし</td><td><code>#598ADE</code></td></tr>
+          <tr><td>シングルクォート</td><td><code>'#598ADE'</code></td></tr>
+          <tr><td>ダブルクォート</td><td><code>"#598ADE"</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>設定はアプリを閉じても覚えています。</p>
+
+    <h2 id="palette">4. パレットに並べる</h2>
+    <p>左側のパレットには、小さい枠 10 個と大きい枠 5 個があります。</p>
+    <ul>
+      <li><strong>置く</strong>：履歴の色見本（各行の左端）を、パレットの枠へドラッグ&ドロップします</li>
+      <li><strong>コピーする</strong>：パレットの色を、別の枠へドラッグ&ドロップします</li>
+      <li><strong>消す</strong>：枠をダブルクリックします</li>
+    </ul>
+    <p>パレットの中身も保存されるので、次に開いたときもそのまま残っています。</p>
+    <p>ウィンドウの幅を狭くすると、パレットは隠れて履歴だけの表示になります。</p>
+
+    <h2 id="theme">5. テーマとパレットの背景色</h2>
+    <ul>
+      <li>右上のスイッチで<strong>ライト / ダーク</strong>を切り替えます</li>
+      <li>「パレットの色」で、パレットの背景色を変えられます。白い背景・黒い背景の上で配色がどう見えるか確かめるのに使えます。テーマを切り替えると元の色に戻ります</li>
+    </ul>
+
+    <h2 id="trouble">6. 困ったときは</h2>
+    <details>
+      <summary>Linux でスポイトを押してもエラーになる</summary>
+      <p>Linux（特に Wayland）では、アプリが画面を直接読めないため、デスクトップ環境の「xdg-desktop-portal」に色の取得を頼んでいます。KDE なら <code>xdg-desktop-portal-kde</code>、GNOME なら <code>xdg-desktop-portal-gnome</code> が入っているか確認してください。</p>
+    </details>
+    <details>
+      <summary>Linux で画面が真っ白になる・起動直後に落ちる</summary>
+      <p>NVIDIA のドライバーと Wayland の組み合わせで起きる問題への対策は組み込み済みです。それでも直らないときは、次のように起動してみてください。</p>
+<pre><code>WEBKIT_DISABLE_COMPOSITING_MODE=1 color-picker</code></pre>
+    </details>
+    <details>
+      <summary>色の四角を動かしている途中の色は履歴に入らない？</summary>
+      <p>はい。ダイアログで色を確定したときだけ履歴に追加します。ドラッグ中の色で履歴が埋まらないようにするためです。</p>
+    </details>
+    <details>
+      <summary>不具合を見つけた・要望がある</summary>
+      <p><a href="https://github.com/bunnmei/tauri-color-picker/issues">GitHub の Issues</a> から教えてください。</p>
+    </details>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span class="copyright">© 2026 bunnmei</span>
+      <a href="./">ホーム</a>
+      <a href="https://github.com/bunnmei/tauri-color-picker">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -15,13 +15,14 @@
 .palette-small {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(10, 50px);
+  /* 列数は ColorPalette.jsx が幅に合わせて決める */
+  grid-template-columns: repeat(var(--cols), 50px);
 }
 
 .palette-large {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(var(--cols), minmax(120px, 1fr));
 }
 
 .slot {
@@ -40,29 +41,13 @@
   height: 120px;
 }
 
-/* カード幅に合わせて小さいスロットの列数を減らす */
+/* 狭いときは小さい枠を 2 段にするので低くする */
 @container (max-width: 760px) {
-  .palette-small {
-    grid-template-columns: repeat(8, 50px);
-  }
-
   .slot-small {
     height: 50px;
   }
 
   .slot-large {
     height: 100px;
-  }
-}
-
-@container (max-width: 620px) {
-  .palette-small {
-    grid-template-columns: repeat(6, 50px);
-  }
-}
-
-@container (max-width: 480px) {
-  .palette-small {
-    grid-template-columns: repeat(5, 50px);
   }
 }
