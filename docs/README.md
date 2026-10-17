@@ -16,10 +16,22 @@ docs/
     site.css         デザイン（ライト/ダーク自動切替）
     site.js          ヘッダーの影、言語の記憶、コードのコピーボタン
   img/icon.svg     アプリのアイコン（src-tauri/icons/icon.svg のコピー）
+  app/             ブラウザ版のアプリ（npm run build:web の出力。手で編集しない）
   ja/  en/         各ページの本文
     index.html       トップ
     guide.html       使い方
+    web.html         ブラウザ版を埋め込んだページ
 ```
+
+## ブラウザ版を更新する
+
+`src/` を変えたら、リポジトリのルートで次を実行して `docs/app/` を作り直し、一緒にコミットします。
+
+```
+npm run build:web
+```
+
+ブラウザ版では Tauri の機能が使えないので、スポイトはブラウザの EyeDropper API（Chrome / Edge）を使います（`src/lib/eyedropper.js`）。
 
 ## 公開のしかた
 
