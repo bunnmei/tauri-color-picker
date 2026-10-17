@@ -16,4 +16,51 @@
 npm install
 npm run tauri dev     # 開発
 npm run tauri build   # ビルド
+npm run build:web     # ブラウザ版 (docs/app) を作り直す
 ```
+
+## リリースの手順
+
+`v1.2.3` のようなタグを push すると、GitHub Actions (`.github/workflows/release.yml`) が Windows / macOS / Linux 向けにビルドし、GitHub Release の**下書き**にインストーラーを添付します。
+
+### 1. バージョンを上げる
+
+次の 3 か所を**同じバージョン**にそろえます (例: `1.2.3`)。
+
+| ファイル | 書き換える場所 | 備考 |
+| --- | --- | --- |
+| `src-tauri/tauri.conf.json` | `"version": "1.2.3"` | **タグと一致しないと Actions がエラーで止まる**。インストーラーのバージョンもここから決まる |
+| `src-tauri/Cargo.toml` | `[package]` の `version = "1.2.3"` | |
+| `package.json` | `"version": "1.2.3"` | |
+
+`Cargo.toml` を変えたら `Cargo.lock` も更新しておきます。
+
+```sh
+cargo update -p color-picker --manifest-path src-tauri/Cargo.toml
+```
+
+### 2. コミットしてタグを付ける
+
+```sh
+git add -A
+git commit -m "v1.2.3"
+git push origin main
+
+git tag v1.2.3            # 先頭に v を付ける
+git push origin v1.2.3    # タグの push で Actions が動く
+```
+
+### 3. 公開する
+
+1. GitHub の Actions タブで 3 つのビルド (windows-x64 / linux-x64 / macos-arm64) が成功するのを待つ
+2. Releases に下書きができているので、内容を確認して「Publish release」を押す
+
+### 失敗したときにタグを付け直す
+
+```sh
+git tag -d v1.2.3                  # ローカルのタグを消す
+git push origin --delete v1.2.3    # GitHub のタグを消す
+# 直してコミット・push したあと、もう一度 2. のタグの手順を行う
+```
+
+GitHub に残った下書きの Release は、手で削除してから付け直してください。
