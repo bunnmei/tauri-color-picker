@@ -25,19 +25,32 @@ npm run build:web     # ブラウザ版 (docs/app) を作り直す
 
 ### 1. バージョンを上げる
 
-次の 3 か所を**同じバージョン**にそろえます (例: `1.2.3`)。
+スクリプトで全部まとめて書き換えられます (`v` は付けても付けなくてもよい)。
+
+```sh
+python3 scripts/bump_version.py v1.2.3
+```
+
+書き換えるのは次のファイルで、終わると続けて打つ git のコマンドが表示されます。
 
 | ファイル | 書き換える場所 | 備考 |
 | --- | --- | --- |
-| `src-tauri/tauri.conf.json` | `"version": "1.2.3"` | **タグと一致しないと Actions がエラーで止まる**。インストーラーのバージョンもここから決まる |
-| `src-tauri/Cargo.toml` | `[package]` の `version = "1.2.3"` | |
-| `package.json` | `"version": "1.2.3"` | |
+| `src-tauri/tauri.conf.json` | `"version"` | **タグと一致しないと Actions がエラーで止まる**。インストーラーのバージョンもここから決まる |
+| `src-tauri/Cargo.toml` | `[package]` の `version` | |
+| `src-tauri/Cargo.lock` | `color-picker` の `version` | |
+| `package.json` | `"version"` | |
+| `package-lock.json` | 先頭と `packages[""]` の `"version"` | |
 
-`Cargo.toml` を変えたら `Cargo.lock` も更新しておきます。
+<details>
+<summary>手で書き換える場合</summary>
+
+上の表のファイルを同じバージョンにそろえます。`Cargo.lock` は手で直す代わりに次でも更新できます。
 
 ```sh
 cargo update -p color-picker --manifest-path src-tauri/Cargo.toml
 ```
+
+</details>
 
 ### 2. コミットしてタグを付ける
 
